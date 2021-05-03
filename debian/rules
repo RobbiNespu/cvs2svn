@@ -12,7 +12,7 @@ build-stamp:
 	-./run-tests.py
 	
 	python3 setup.py build
-	make man
+	#make man
 	touch $@
 
 build-arch: build-stamp
@@ -40,6 +40,7 @@ clean:
 	rm -rf $(CURDIR)/debian/locale/
 	rm -f cvs2bzr.1 cvs2git.1 cvs2svn.1
 	rm -f build-stamp install-stamp
+	rm -rf $(CURDIR)/cvs2svn_lib/__pycache__/
 	dh_clean
 
 binary-arch: build
