@@ -1,2 +1,4 @@
 force-keyword-mode.patch
 cvs-domain.patch
+python2assert.patch
+print-version.patch

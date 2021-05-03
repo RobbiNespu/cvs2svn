@@ -1,0 +1,15 @@
+diff --git a/setup.py b/setup.py
+index 8fbb8ff..f01dc3c 100755
+--- a/setup.py
++++ b/setup.py
+@@ -3,8 +3,8 @@
+ import sys
+ from distutils.core import setup
+ 
+-assert 0x02040000 <= sys.hexversion < 0x03000000, \
+-       "Install Python 2, version 2.4 or greater"
++#assert 0x02040000 <= sys.hexversion < 0x03000000, \
++ #      "Install Python 2, version 2.4 or greater"
+ 
+ 
+ def get_version():

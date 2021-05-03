@@ -11,7 +11,7 @@ build-stamp:
 	# so we go for a reduced testsuite.
 	-./run-tests.py
 	
-	python setup.py build
+	python3 setup.py build
 	make man
 	touch $@
 
@@ -22,7 +22,7 @@ install: install-stamp
 install-stamp:
 	dh_testdir
 	dh_installdirs
-	python setup.py install --root=$(DESTDIR) --prefix=/usr/
+	python3 setup.py install --root=$(DESTDIR) --prefix=/usr/
 	install -d $(DESTDIR)/usr/share/lintian/overrides/
 	install -m0644 $(CURDIR)/debian/cvs2svn.lintian $(DESTDIR)/usr/share/lintian/overrides/cvs2svn
 
@@ -30,7 +30,7 @@ install-stamp:
 
 clean:
 	dh_testdir
-	python setup.py clean
+	python3 setup.py clean
 
 	# clean up
 	rm -rf $(CURDIR)/build/ $(CURDIR)/tmp/ $(CURDIR)/cvs2svn-tmp/ \
@@ -50,7 +50,7 @@ binary-indep: build install
 	dh_installchangelogs -i
 	dh_installman -i
 	dh_installexamples -i
-	dh_python2 -i
+	dh_python3 -i
 	dh_compress -i
 	dh_fixperms -i
 	dh_installdeb -i

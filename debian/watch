@@ -1,6 +1,6 @@
 version=4
 #http://cvs2svn.tigris.org/servlets/ProjectDocumentList?folderID=2976&expandFolder=2976&folderID=0 (?:.*/)?cvs2svn-?_?([\d+\.]+|\d+)\.tar.gz debian uupdatei
-opts="filenamemangle=s%(?:.*?)?v?(\d[\d.]*)\.tar\.gz%scanpy-$1.tar.gz%" \
-   https://github.com/robbinespu/svn2git/tags \
+opts="filenamemangle=s%(?:.*?)?v?(\d[\d.]*)\.tar\.gz%cvs2svn-$1.tar.gz%" \
+   https://github.com/robbinespu/cvs2svn/tags \
    (?:.*?/)?v?(\d[\d.]*)\.tar\.gz
 
