@@ -1,0 +1,4 @@
+cvs2svn: script-not-executable ./usr/share/python-support/cvs2svn/cvs2svn_rcsparse/parse_rcs_file.py
+cvs2svn: script-not-executable ./usr/share/python-support/cvs2svn/cvs2svn_rcsparse/run-tests.py
+cvs2svn: script-not-executable ./usr/share/python-support/cvs2svn/cvs2svn_lib/main.py
+cvs2svn: script-not-executable ./usr/share/python-support/cvs2svn/cvs2svn_lib/version.py

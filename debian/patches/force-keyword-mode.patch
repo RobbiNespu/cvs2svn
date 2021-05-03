@@ -1,0 +1,134 @@
+--- a/cvs2svn_lib/abstract_rcs_revision_manager.py
++++ b/cvs2svn_lib/abstract_rcs_revision_manager.py
+@@ -38,6 +38,9 @@ class AbstractRCSRevisionReader(Revision
+   # mode, which leaves the keywords untouched.  Therefore, whenever
+   # eol_fix is False, we need to use '-kb' mode and then (if
+   # necessary) expand or collapse the keywords ourselves.
++  #
++  # The 'kept' substitution is an exception, we do not deal with
++  # keywords at all in this case and just let CVS do its thing.
+   _text_options = {
+       (False, 'collapsed') : (['-kb'], 'collapsed'),
+       (False, 'expanded') : (['-kb'], 'expanded'),
+@@ -46,6 +49,9 @@ class AbstractRCSRevisionReader(Revision
+       (True, 'collapsed') : (['-kk'], None),
+       (True, 'expanded') : (['-kkv'], None),
+       (True, 'untouched') : (['-ko'], None),
++
++      (False, 'kept') : ([], None),
++      (True, 'kept') : ([], None),
+       }
+ 
+   def get_pipe_command(self, cvs_rev, k_option):
+--- a/cvs2svn_lib/checkout_internal.py
++++ b/cvs2svn_lib/checkout_internal.py
+@@ -707,6 +707,9 @@ class InternalRevisionReader(RevisionRea
+         'untouched' -- output keywords in the form they are found in
+             the RCS file
+ 
++        'kept' -- output keywords in the form they are found in
++            the CVS checkout output
++
+     Note that $Log$ never actually generates a log (which makes test
+     'requires_cvs()' fail).
+ 
+@@ -728,6 +731,9 @@ class InternalRevisionReader(RevisionRea
+     if keyword_handling == 'untouched':
+       # Leave keywords in the form that they were checked in.
+       pass
++    elif keyword_handling == 'kept':
++      # Leave keywords in the form they would have on checkout.
++      pass
+     elif keyword_handling == 'collapsed':
+       text = collapse_keywords(text)
+     elif keyword_handling == 'expanded':
+--- a/cvs2svn_lib/dvcs_common.py
++++ b/cvs2svn_lib/dvcs_common.py
+@@ -24,6 +24,7 @@ from cvs2svn_lib import config
+ from cvs2svn_lib.common import FatalError
+ from cvs2svn_lib.common import InternalError
+ from cvs2svn_lib.run_options import RunOptions
++from cvs2svn_lib.run_options import IncompatibleOption
+ from cvs2svn_lib.log import logger
+ from cvs2svn_lib.common import error_prefix
+ from cvs2svn_lib.context import Ctx
+@@ -50,9 +51,9 @@ class KeywordHandlingPropertySetter(File
+   propname = '_keyword_handling'
+ 
+   def __init__(self, value):
+-    if value not in ['collapsed', 'expanded', 'untouched', None]:
++    if value not in ['collapsed', 'expanded', 'untouched', 'kept', None]:
+       raise FatalError(
+-          'Value for %s must be "collapsed", "expanded", or "untouched"'
++          'Value for %s must be "collapsed", "expanded", "untouched", or "kept"'
+           % (self.propname,)
+           )
+     self.value = value
+@@ -72,6 +72,27 @@ class DVCSRunOptions(RunOptions):
+       Ctx().username = self.DEFAULT_USERNAME
+     RunOptions.__init__(self, progname, cmd_args, pass_manager)
+ 
++  def _get_extraction_options_group(self):
++    group = super(DVCSRunOptions, self)._get_extraction_options_group()
++    self.parser.set_default('force_keyword_mode', 'no')
++    group.add_option(IncompatibleOption(
++        '--force-keyword-mode', type='choice',
++        choices=['untouched', 'collapsed', 'expanded', 'kept', 'no'],
++        action='store',
++        help='force (untouched, collapsed, expanded, kept), or no',
++        man_help=(
++            'Keyword mode to force, or \\fIno\\fR to use the default. '
++            '\\fIopt\\fR can be \'untouched\' (keep literally as they '
++            'are recorded in the RCS file), \'collapsed\' (retain the '
++            'key but not the value), \'expanded\' (fake the way CVS '
++            'expands them, even for binaries), \'kept\' (just let CVS '
++            'deal with keywords).'
++            ),
++        metavar='OPT',
++        ))
++
++    return group
++
+   def set_project(
+         self,
+         project_cvs_repos_path,
+@@ -103,9 +124,14 @@ class DVCSRunOptions(RunOptions):
+   def process_property_setter_options(self):
+     RunOptions.process_property_setter_options(self)
+ 
++    property_mode = self.options.force_keyword_mode
++    if property_mode == 'no':
++        # default
++        property_mode = 'collapsed'
++
+     # Property setters for internal use:
+     Ctx().file_property_setters.append(
+-        KeywordHandlingPropertySetter('collapsed')
++        KeywordHandlingPropertySetter(property_mode)
+         )
+ 
+   def process_options(self):
+--- a/cvs2svn_lib/revision_manager.py
++++ b/cvs2svn_lib/revision_manager.py
+@@ -116,6 +116,8 @@ class RevisionReader(object):
+         *previous* revision, because CVS expands keywords on checkout,
+         not checkin.
+ 
++      * kept -- let CVS deal with keywords
++
+       * unset -- undefined behavior; depends on which revision manager
+         is being used.
+ 
+--- a/doc/properties.txt
++++ b/doc/properties.txt
+@@ -75,6 +75,10 @@ they are used for two purposes:
+                useful feature, but is listed for completeness.  NOT
+                YET IMPLEMENTED.
+ 
++           'kept' -- Just let CVS deal with the keywords, do not
++               handle them specially internally.  This may conflict
++               with other options and should be used carefully.
++
+        _eol_fix -- Should end-of-line sequences be made uniform before
+            committing to the target VCS?  If this property is set to a
+            non-empty value, then every end-of-line character sequence

@@ -1,0 +1,2 @@
+version=3
+http://cvs2svn.tigris.org/servlets/ProjectDocumentList?folderID=2976&expandFolder=2976&folderID=0 (?:.*/)?cvs2svn-?_?([\d+\.]+|\d+)\.tar.gz debian uupdate

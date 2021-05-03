@@ -1,0 +1,290 @@
+cvs2svn (2.5.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Drop merged in patches.
+  * Update other patches.
+  * Update Standards-Version to 4.1.1 and debhelper level to 10 .
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Thu, 30 Nov 2017 19:30:12 +0000
+
+cvs2svn (2.4.0-4) unstable; urgency=low
+
+  [ Thorsten Glaser <t.glaser@tarent.de> ]
+  * Patches for 'honour CVS keywords' and 'add domain to authors':
+    - force-keyword-mode.patch is to allow the git export of the
+      CVS repository to match a CVS export of it byte for byte,
+      when CVS keywords are used,
+    - cvs-domain.patch is to add @domain.com parts to git-side
+      authors from CVS committers, assuming they all have their
+      CVS username as eMail localpart of the same domain (a rather
+      common setup when CVS is used over SSH, e.g. in modern BSD).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 06 Nov 2016 20:28:17 +0000
+
+cvs2svn (2.4.0-3) unstable; urgency=low
+
+  * Update Standards-Version to 3.9.8 .
+
+  [ Chris Lamb <lamby@debian.org> ]
+  * Make the build reproducible (closes: #831066).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sat, 30 Jul 2016 17:40:30 +0000
+
+cvs2svn (2.4.0-2) unstable; urgency=low
+
+  * Run tests, but don't fail on them as only the Subversion output changed
+    (closes: #713075).
+  * Make package section be vcs to match the override.
+  * Update Standards-Version to 3.9.5 .
+  * cvs2git manpage is updated (closes: #717087).
+
+  [ Stephen Oberholtzer <stevie@qrpff.net> ]
+  * Fix FTBFS due to rcs switch change (closes: #737144).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Thu, 30 Jan 2014 23:42:25 +0100
+
+cvs2svn (2.4.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Convert to 3.0 (quilt) source format.
+  * Update to Standards-Version 3.9.3:
+    - add build-arch and build-indep targets,
+    - move to dh_python2 .
+  * Generate manpages instead of using handwritten ones (closes: #624535).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Sat, 29 Sep 2012 15:38:36 +0200
+
+cvs2svn (2.3.0-3) unstable; urgency=low
+
+  * Fix some test cases to deal with non-deterministic dump output
+    (closes: #665028), thanks to Salvatore Bonaccorso for the heads-up.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Sat, 25 Aug 2012 13:21:49 +0200
+
+cvs2svn (2.3.0-2) unstable; urgency=low
+
+  * Pass '--prefix=/usr' to 'setup.py install' needed for the upcoming Python
+    2.6 migration (closes: #546557).
+  * Build-Depend on python itself and not on python-dev .
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Thu, 03 Dec 2009 21:20:06 +0000
+
+cvs2svn (2.3.0-1) unstable; urgency=low
+
+  * New upstream release, fixes FTBFS due to self-test (closes: #542981).
+  * Upstream no longer distributes manpage for cvs2svn, restore it.
+  * New convert binaries: cvs2bzr and cvs2git , added manpage for them;
+    updated description and populated suggests with bzr and git-core .
+  * Install all related example files (closes: #530489).
+  * Update python compatibility level to 2.4 .
+  * Update debhelper compatibility to 6 and standards-version to 3.8.3 .
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Wed, 26 Aug 2009 18:08:27 +0000
+
+cvs2svn (2.2.0-1) unstable; urgency=low
+
+  * New upstream release (closes: #511706). This release (and maybe previous
+    ones as well) fixes summary of total timings (closes: #366038).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Tue, 13 Jan 2009 18:43:45 +0000
+
+cvs2svn (2.1.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Sun, 27 Apr 2008 22:25:10 +0200
+
+cvs2svn (2.1.0-1) unstable; urgency=low
+
+  * New upstream release (closes: #467317).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Sun, 24 Feb 2008 17:46:45 +0000
+
+cvs2svn (2.0.1-1) unstable; urgency=low
+
+  * New upstream release (closes: 448875).
+  * Install cvs2svn-example.options (closes: #430748).
+  * Fix minor packaging issues and don't encode manpage in UTF-8
+    (closes: #441814).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Sat, 20 Oct 2007 17:34:19 +0200
+
+cvs2svn (1.5.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Fri, 13 Oct 2006 11:27:02 +0000
+
+cvs2svn (1.4.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Accept NMU (closes: #380763), but further fine packaging.
+
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Sun,  3 Sep 2006 23:18:16 +0200
+
+cvs2svn (1.3.1-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Update package to the last python policy (Closes: 380763).
+
+ -- Pierre Habouzit <madcoder@debian.org>  Tue, 29 Aug 2006 22:36:34 +0200
+
+cvs2svn (1.3.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fix minor manpage typo, thanks to Jens Seidel (closes: #338018).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Mon,  5 Jun 2006 08:39:40 +0200
+
+cvs2svn (1.3.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Fri, 19 Aug 2005 07:25:12 +0200
+
+cvs2svn (1.2.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Wed, 16 Feb 2005 11:35:44 +0100
+
+cvs2svn (1.2.0-1) unstable; urgency=low
+
+  * New upstream release, containing the patches for '--fs-type' option
+    which was already in the 1.1.0-3 package, but this is now an official
+    release (closes: #291409).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Wed, 26 Jan 2005 11:34:21 +0100
+
+cvs2svn (1.1.0-3) unstable; urgency=low
+
+  * Fix typo in package description (closes: #277209).
+  * Get --fs-type switch addition from upstream SVN tree (closes: #277842).
+  * Changed email address.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Mon, 22 Nov 2004 20:42:09 +0100
+
+cvs2svn (1.1.0-2) unstable; urgency=medium
+
+  * Fix issues that David Kimdon spotted:
+    - update debian/copyright to include that source can be obtained as
+      tar.gz as well, not just from a Subversion repository,
+    - new package description, do not state that cvs2svn is not "1.0"
+      quality, as it is.
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Sat, 18 Sep 2004 07:10:19 +0000
+
+cvs2svn (1.1.0-1) unstable; urgency=medium
+
+  * New upstream release with all the recent bug fixes.
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Thu, 16 Sep 2004 05:32:58 +0000
+
+cvs2svn (1.0.0-2) unstable; urgency=medium
+
+  * Include r1369+r1370 which fixes a rather bad bug. It should hit Sarge,
+    hence the urgency.
+  * Include r1368 as well, which is a wording (ie no code) fix only.
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Mon, 30 Aug 2004 19:41:45 +0000
+
+cvs2svn (1.0.0-1) unstable; urgency=medium
+
+  * New upstream release, cvs2svn goes gold!
+  * Dropped cvs2svn.1 manpage, as merged upstream.
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Wed, 25 Aug 2004 20:20:45 +0000
+
+cvs2svn (0.1326-1) unstable; urgency=low
+
+  * New upstream release with important bugfixes.
+  * Rewrote cvs2svn manpage from scratch to be in Linux format.
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Tue, 10 Aug 2004 20:10:57 +0000
+
+cvs2svn (0.1278-1) unstable; urgency=low
+
+  * New upstream release:
+    - profile-cvs2svn integrated (--profile),
+    - set line ending based on mime-type (--eol-from-mime-type), or
+       do not do it regarding to CVS (--no-default-eol),
+    - rename release candidate scripts to ones without .py ending,
+    - usual bugfixes.
+  * Manpage update according to upstream changes.
+  * Stop shipping verify-cvs2svn by upstream request.
+  * Loose the dependency on Python to be 2.1.0 or later.
+  * Include HTML docs in the package.
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Fri, 23 Jul 2004 20:28:34 +0000
+
+cvs2svn (0.1263-1) unstable; urgency=low
+
+  * New upstream release:
+    - new versioning scheme,
+    - more redesign and cleanup,
+    - more speeding up,
+    - new options for specifying a temporary directory, doing a dry-run
+      only and exclude tags/branches (manpage updated accordingly).
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Sun, 18 Jul 2004 19:45:42 +0000
+
+cvs2svn (0.0.1173-1) unstable; urgency=low
+
+  * Fix FTBFS because of run-tests.py specifies python directly
+    (closes: #255828).
+  * New upstream release, redesign of the internals; cvs2svn should be
+    faster and more accurate.
+  * Minor packaging cleanup.
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Sun, 27 Jun 2004 07:54:28 +0000
+
+cvs2svn (0.0.1158-1) unstable; urgency=low
+
+  * New upstream version, fixes minor bugs
+  * Wrap package description at column 76 instead of 79
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Mon, 21 Jun 2004 16:54:08 +0000
+
+cvs2svn (0.0.957-1) unstable; urgency=low
+
+  * New upstream release.
+  * Add rcs to Build-Depends, thanks to Daniel Schepler
+    <schepler@math.berkeley.edu> again (closes: #248215).
+  * Small packaging cleanup, use Build-Depends-Indep instead of Build-Depends
+    and others.
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Mon, 10 May 2004 17:07:51 +0000
+
+cvs2svn (0.0.934-1) unstable; urgency=low
+
+  * New upstream release.
+  * Change the locale setup for package building time self-test. Reported
+    and solution provided by Daniel Schepler <schepler@math.berkeley.edu>,
+    thanks! Closes: #246490.
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Tue, 27 Apr 2004 19:46:23 +0000
+
+cvs2svn (0.0.923-1) unstable; urgency=low
+
+  * New upstream release
+  * Update manpage to reflect new upstream possibilities with --force-branch
+    and --force-tag switches; also fix some oddities
+  * Recommend mime-support as cvs2svn can make use of it
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Sat, 17 Apr 2004 18:21:50 +0000
+
+cvs2svn (0.0.911-1) unstable; urgency=low
+
+  * New upstream release
+  * Big update of manpages (by me, closes: #232933, #232322)
+  * Install upstream README, and minor packaging changes
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Sat,  3 Apr 2004 15:05:22 +0000
+
+cvs2svn (0.0.838-1) unstable; urgency=low
+
+  * Initial release (closes: #237934)
+  * Wrote man page for verify-cvs2svn
+
+ -- László Böszörményi (GCS) <gcs@lsc.hu>  Sun,  7 Mar 2004 16:58:17 +0000

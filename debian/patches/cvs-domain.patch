@@ -1,0 +1,52 @@
+--- a/cvs2svn_lib/git_output_option.py
++++ b/cvs2svn_lib/git_output_option.py
+@@ -174,6 +174,7 @@ class GitOutputOption(DVCSOutputOption):
+         dump_filename=None,
+         author_transforms=None,
+         tie_tag_fixup_branches=False,
++        cvs_domain='',
+         ):
+     """Constructor.
+ 
+@@ -205,6 +206,7 @@ class GitOutputOption(DVCSOutputOption):
+     self.author_transforms = self.normalize_author_transforms(
+         author_transforms
+         )
++    self.cvs_domain = cvs_domain
+ 
+     self.tie_tag_fixup_branches = tie_tag_fixup_branches
+ 
+@@ -272,6 +274,8 @@ class GitOutputOption(DVCSOutputOption):
+     return self._map_author(cvs_author)
+ 
+   def _map_author(self, cvs_author):
++    if self.cvs_domain:
++        return "%s <%s@%s>" % (cvs_author, cvs_author, self.cvs_domain)
+     return self.author_transforms.get(cvs_author, "%s <>" % (cvs_author,))
+ 
+   @staticmethod
+--- a/cvs2svn_lib/git_run_options.py
++++ b/cvs2svn_lib/git_run_options.py
+@@ -117,6 +117,16 @@ A directory called \\fIcvs2svn-tmp\\fR (
+             'Do not create any output; just print what would happen.'
+             ),
+         ))
++    group.add_option(IncompatibleOption(
++        '--cvs-domain', type='string',
++        action='store',
++        help='domain for CVS user to eMail mapping',
++        man_help=(
++            'Enables writing \\fIcvsusername\\fR@\\fIdomain\\fR style'
++            'eMail addresses to the git commits.'
++            ),
++        metavar='DOMAIN',
++        ))
+ 
+     return group
+ 
+@@ -198,4 +198,5 @@ A directory under \\fI%s\\fR (or the dir
+           dump_filename=self.options.dumpfile,
+           # Optional map from CVS author names to git author names:
+           author_transforms={}, # FIXME
++          cvs_domain=self.options.cvs_domain,
+           )

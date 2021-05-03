@@ -1,0 +1,19 @@
+Source: cvs2svn
+Section: vcs
+Priority: optional
+Maintainer: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Build-Depends-Indep: dh-python, rcs, cvs, subversion, locales
+Build-Depends: debhelper (>= 10), python, python-all (>= 2.6.6-3~)
+Standards-Version: 4.1.1
+Homepage: http://cvs2svn.tigris.org/
+
+Package: cvs2svn
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, subversion (>= 1.0.1), rcs
+XB-Python-Version: ${python:Versions}
+Suggests: cvs, bzr, git-core
+Recommends: mime-support
+Description: Convert a cvs repository to a subversion, bazaar or git repository
+ Converts a CVS repository (including its branches and tags) to a
+ Subversion, Bazaar or Git repository. It is designed for one-time conversions,
+ not for repeated synchronizations between CVS and Subversion, Bazaar or Git.

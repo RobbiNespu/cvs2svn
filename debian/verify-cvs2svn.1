@@ -1,0 +1,40 @@
+.TH verify-cvs2svn 1 "April 12, 2004" "Subversion" "User Commands"
+.SH NAME
+verify-cvs2svn \- verify the output of cvs2svn
+.SH SYNOPSIS
+.TP
+\fBverify-cvs2svn\fP [\fB--branch\fP=\fIbranch\fP] [\fB--diff\fP] [\fB--tag\fP=\fItag\fP] [\fB--tempdir\fP=\fIpath\fP] [\fB--trunk\fP] \fIcvs-repos-path\fP \fIsvn-repos-path\fP
+.SH DESCRIPTION
+Verifies that a repository converted by cvs2svn is correct. At the moment
+it verifies the contents of the HEAD revision for trunk and all tags and
+branches.
+.PP
+\fIcvs-repos-path\fP
+is a project's toplevel directory inside your CVS repository.
+.br
+\fIsvn-repos-path\fP
+is the SVN toplevel directory where you converted your repository with
+the cvs2svn script.
+.TP
+\fB--branch\fP=\fIbranch\fP
+Verify contents of the branch \fIbranch\fP only.
+.TP
+\fB--diff\fP
+Run diff on differing files
+.TP
+\fB--tag\fP=\fItag\fP
+Verify contents of the \fItag\fP only.
+.TP
+\fB--tempdir\fP=\fIpath\fP
+A \fIpath\fP to store temporary files.
+.TP
+\fB--trunk\fP
+Verify contents of trunk only.
+.SH LIMITATIONS
+It needs more comments and error checking, but it works if you are careful
+with it. :-)
+.SH SEE ALSO
+cvs(1), svn(1), svnadmin(1), cvs2svn(1)
+.SH AUTHOR
+This manpage was written for the Debian GNU/Linux system by Laszlo 'GCS'
+Boszormenyi <gcs@lsc.hu> (but may be used by others).
