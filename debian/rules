@@ -47,9 +47,9 @@ binary-arch: build
 
 binary-indep: build install
 	dh_testdir
-	dh_installdocs -i README www/
+#	dh_installdocs -i README www/
 	dh_installchangelogs -i
-	dh_installman -i
+#	dh_installman -i
 	dh_installexamples -i
 	dh_python3 -i
 	dh_compress -i
